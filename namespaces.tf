@@ -5,14 +5,14 @@
 
 resource "kubernetes_namespace" "app1" {
   metadata {
-    name = var.app1_name
+    name = var.apps.app1
     labels = {
-      name  = var.app1_labels.name
-      tier  = var.app1_labels.tier
-      owner = var.app1_labels.owner
+      name  = var.apps_labels.name.app1
+      tier  = var.apps_labels.tier.app1
+      owner = var.apps_labels.owner.app1
     }
     annotations = {
-      "serviceClass"       = var.app1_annotations.serviceClass
+      "serviceClass"       = var.apps_annotations.serviceClass.app1
       "loadBalancer/class" = true
     }
   }
@@ -20,14 +20,14 @@ resource "kubernetes_namespace" "app1" {
 
 resource "kubernetes_namespace" "app2" {
   metadata {
-    name = var.app2_name
+    name = var.apps.app2
     labels = {
-      name  = var.app2_labels.name
-      tier  = var.app2_labels.tier
-      owner = var.app2_labels.owner
+      name  = var.apps_labels.name.app2
+      tier  = var.apps_labels.tier.app2
+      owner = var.apps_labels.owner.app2
     }
     annotations = {
-      "serviceClass"       = var.app2_annotations.serviceClass
+      "serviceClass"       = var.apps_annotations.serviceClass.app2
       "loadBalancer/class" = true
     }
   }
@@ -35,14 +35,14 @@ resource "kubernetes_namespace" "app2" {
 
 resource "kubernetes_namespace" "app3" {
   metadata {
-    name = var.app3_name
+    name = var.apps.app3
     labels = {
-      name  = var.app3_labels.name
-      tier  = var.app3_labels.tier
-      owner = var.app3_labels.owner
+      name  = var.apps_labels.name.app3
+      tier  = var.apps_labels.tier.app3
+      owner = var.apps_labels.owner.app3
     }
     annotations = {
-      "serviceClass"       = var.app3_annotations.serviceClass
+      "serviceClass"       = var.apps_annotations.serviceClass.app3
       "loadBalancer/class" = false
     }
   }

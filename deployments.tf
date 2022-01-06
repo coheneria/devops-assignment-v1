@@ -5,31 +5,31 @@
 
 resource "kubernetes_deployment" "app1" {
   metadata {
-    name      = var.app1_name
-    namespace = var.app1_name
+    name      = var.apps.app1
+    namespace = var.apps.app1
     labels = {
-      name = var.app1_labels.name
-      tier = var.app1_labels.tier
+      name = var.apps_labels.name.app1
+      tier = var.apps_labels.tier.app1
     }
   }
   spec {
     selector {
       match_labels = {
-        name = var.app1_labels.name
-        tier = var.app1_labels.tier
+        name = var.apps_labels.name.app1
+        tier = var.apps_labels.tier.app1
       }
     }
     template {
       metadata {
-        name = var.app1_name
+        name = var.apps.app1
         labels = {
-          name = var.app1_labels.name
-          tier = var.app1_labels.tier
+          name = var.apps_labels.name.app1
+          tier = var.apps_labels.tier.app1
         }
       }
       spec {
         container {
-          name  = var.app1_name
+          name  = var.apps.app1
           image = "nginx"
         }
       }
@@ -39,31 +39,31 @@ resource "kubernetes_deployment" "app1" {
 
 resource "kubernetes_deployment" "app2" {
   metadata {
-    name      = var.app2_name
-    namespace = var.app2_name
+    name      = var.apps.app2
+    namespace = var.apps.app2
     labels = {
-      name = var.app2_labels.name
-      tier = var.app2_labels.tier
+      name = var.apps_labels.name.app2
+      tier = var.apps_labels.tier.app2
     }
   }
   spec {
     selector {
       match_labels = {
-        name = var.app2_labels.name
-        tier = var.app2_labels.tier
+        name = var.apps_labels.name.app2
+        tier = var.apps_labels.tier.app2
       }
     }
     template {
       metadata {
-        name = var.app2_name
+        name = var.apps.app2
         labels = {
-          name = var.app2_labels.name
-          tier = var.app2_labels.tier
+          name = var.apps_labels.name.app2
+          tier = var.apps_labels.tier.app2
         }
       }
       spec {
         container {
-          name  = var.app2_name
+          name  = var.apps.app2
           image = "nginx"
         }
       }
@@ -73,32 +73,36 @@ resource "kubernetes_deployment" "app2" {
 
 resource "kubernetes_deployment" "app3" {
   metadata {
-    name      = var.app3_name
-    namespace = var.app3_name
+    name      = var.apps.app3
+    namespace = var.apps.app3
     labels = {
-      name = var.app3_labels.name
-      tier = var.app3_labels.tier
+      name = var.apps_labels.name.app3
+      tier = var.apps_labels.tier.app3
     }
   }
   spec {
     selector {
       match_labels = {
-        name = var.app3_labels.name
-        tier = var.app3_labels.tier
+        name = var.apps_labels.name.app3
+        tier = var.apps_labels.tier.app3
       }
     }
     template {
       metadata {
-        name = var.app3_name
+        name = var.apps.app3
         labels = {
-          name = var.app3_labels.name
-          tier = var.app3_labels.tier
+          name = var.apps_labels.name.app3
+          tier = var.apps_labels.tier.app3
         }
       }
       spec {
         container {
-          name  = var.app3_name
+          name  = var.apps.app3
           image = "mongo"
+          env {
+            username = var.secret.username
+            password = var.secret.password
+          }
         }
       }
     }

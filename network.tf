@@ -5,8 +5,8 @@
 
 resource "kubernetes_network_policy" "app1" {
   metadata {
-    name      = format("%s-acl", var.app1_name)
-    namespace = var.app1_name
+    name      = format("%s-acl", var.apps.app1)
+    namespace = var.apps.app1
   }
   spec {
     policy_types = ["Ingress", "Egress"]
@@ -40,7 +40,7 @@ resource "kubernetes_network_policy" "app1" {
 
 resource "kubernetes_network_policy" "app2" {
   metadata {
-    name      = format("%s-acl", var.app2_name)
+    name      = format("%s-acl", var.apps.app2)
     namespace = "stream-backend"
   }
   spec {
@@ -75,8 +75,8 @@ resource "kubernetes_network_policy" "app2" {
 
 resource "kubernetes_network_policy" "app3" {
   metadata {
-    name      = format("%s-acl", var.app3_name)
-    namespace = var.app3_name
+    name      = format("%s-acl", var.apps.app3)
+    namespace = var.apps.app3
   }
   spec {
     policy_types = ["Ingress", "Egress"]
@@ -84,7 +84,7 @@ resource "kubernetes_network_policy" "app3" {
       match_expressions {
         key      = "name"
         operator = "In"
-        values   = [var.app3_name]
+        values   = [var.apps.app3]
       }
     }
     ingress {

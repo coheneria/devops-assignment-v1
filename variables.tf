@@ -1,81 +1,61 @@
-### namespace variables for app1
-
-variable "app1_name" {
-  type        = string
-  description = "exposed app name"
-  default     = "stream-frontend"
-}
-
-variable "app1_labels" {
-  type        = map(string)
-  description = "labels for namespace app1"
+### app names variables
+variable "apps" {
+  description = "exposed app names"
+  type = "map"
   default = {
-    "name"  = "stream-frontend"
-    "tier"  = "web"
-    "owner" = "product"
+    "app1" = "stream-frontend"
+    "app2" = "stream-backend"
+    "app3" = "stream-database"
   }
 }
 
-variable "app1_annotations" {
-  type        = map(string)
-  description = "annotations for namespace app1"
+### apps labels variables
+variable "apps_labels" {
+  description = "label for each app"
+  type        = map(object({
+    name = string
+    tier = string
+    owner = string
+  }))
   default = {
-    "serviceClass"       = "web-frontend"
-    "loadBalancer/class" = "external"
+    "app1" = {
+      "name"  = "stream-frontend"
+      "tier"  = "web"
+      "owner" = "product"
+    }
+    "app2" = {
+      "name"  = "stream-backend"
+      "tier"  = "api"
+      "owner" = "product"
+    }
+    "app3" = {
+      "name"  = "stream-database"
+      "tier"  = "shared"
+      "owner" = "product"
+    }
   }
 }
 
-### namespace variables for app2
-
-variable "app2_name" {
-  type        = string
-  description = "exposed app name"
-  default     = "stream-backend"
-}
-
-variable "app2_labels" {
-  type        = map(string)
-  description = "labels for namespace app2"
+### apps annotations variables
+variable "apps_annotations" {
+  description = "annotations for all apps"
+  type        = map(object({
+    serviceClass = string
+    loadBalancer/class = string
+  }))
   default = {
-    "name"  = "stream-backend"
-    "tier"  = "api"
-    "owner" = "product"
+    "app1" = {
+      "serviceClass"       = "web-frontend"
+      "loadBalancer/class" = "external"
+    }
+    "app2" = {
+      "serviceClass"       = "web-backend"
+      "loadBalancer/class" = "internal"
+    }
+    "app3" = {
+      "serviceClass"       = "database"
+      "loadBalancer/class" = "disabled"
   }
-}
-
-variable "app2_annotations" {
-  type        = map(string)
-  description = "annotations for namespace app2"
-  default = {
-    "serviceClass"       = "web-backend"
-    "loadBalancer/class" = "internal"
-  }
-}
-
-### namespace variables for app3
-
-variable "app3_name" {
-  type        = string
-  description = "exposed app name"
-  default     = "stream-database"
-}
-
-variable "app3_labels" {
-  type        = map(string)
-  description = "labels for namespace app3"
-  default = {
-    "name"  = "stream-database"
-    "tier"  = "shared"
-    "owner" = "product"
-  }
-}
-
-variable "app3_annotations" {
-  type        = map(string)
-  description = "annotations for namespace app3"
-  default = {
-    "serviceClass"       = "database"
-    "loadBalancer/class" = "disabled"
   }
 }
 
@@ -132,4 +112,23 @@ variable "acl_database" {
       protocol = "TCP"
     }
   }
+}
+
+### Creating 3 vars namespaces for our dev, prod & test environments. 
+variable "environment" {
+  description = "multiple environments to run the app"
+  type = "map"
+  default = {
+    "env1" = "dev"
+    "env2" = "prod"
+    "env3" = "test"
+  }
+}
+
+### Creating our secret's variable. 
+variable "secret" {
+  description = "secret configuration to access the db env"
+  name = "k8s-secret"
+  username = "dbexample"
+  password = "P4ssw0rd"
 }
