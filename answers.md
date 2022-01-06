@@ -6,6 +6,7 @@ For example:
 In the code, the backend app listening on port "80" only from "172.17.0.0/24" IP range.
 Let's say that the back-end developers changed the port to "443", in order for the app to listen to this new port, we need to change the port in our code and deploy it again, so the frontend can access the backend.
 
+```
 variable "acl_backend" {
   description = "access allowed from this source"
   type = map(object({
@@ -24,6 +25,7 @@ variable "acl_backend" {
     }
   }
 }
+```
 
 =========================================
 
@@ -34,10 +36,12 @@ The resources management request let us configure a limit of all the resources a
 We can define our request and limit.
 
 For example, if we have frontend application, we can request a specific resources for the application:
+```
 resources:
  requests:
   memory: 300Mi //consume 300mb of ram
   cpu: "1" //consume 1 full cpu unit
+```
 
 this pod will request a 300 megabytes of ram & 1 cpu to preform.
 
@@ -45,10 +49,11 @@ Also, if the pod needs more resources, we can limit the pod resources so it'll n
 
 For example, we can "limit" the resources for our frontend application, so the pod can use this maximum resources:
  
+ ```
  limits:
   memory: 500Mi //consume 500mb of ram
   cpu: "2" //consume 2 full cpu units
-
+```
 =========================================
 
 ### Question 5:
@@ -64,6 +69,7 @@ So the K8S object that missing is a "Service" object, with service object we can
 
 Creating variable for multiple environments, so we can run the app in 3 differnet namespace: dev, prod & test
 
+```
 variable "environment" {
   description = "multiple environments to run the app"
   type = "map"
@@ -73,6 +79,7 @@ variable "environment" {
     "env3" = "test"
   }
 }
+```
 
 After we created this, we need to configure it in our deployment so all the resources created in the seperated namespace. 
 
@@ -82,6 +89,7 @@ After we created this, we need to configure it in our deployment so all the reso
 
 We can create a secret object that will contain our sensitive information. after that, we can use it in our deployment manifest to update our deployment using this environment variables.
 
+```
       spec {
         container {
           name  = var.app.app3
@@ -92,3 +100,4 @@ We can create a secret object that will contain our sensitive information. after
           }
         }
       }
+```
